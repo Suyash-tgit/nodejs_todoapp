@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use("/api/v1/users", userRouter);  // /users we are creating prefix
 app.use("/api/v1/task", taskRouter);
 app.use(cors({
-    origin: "*",
+    origin: [process.env.FRONTEND_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
