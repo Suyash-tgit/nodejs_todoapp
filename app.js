@@ -21,10 +21,15 @@ app.use("/api/v1/users", userRouter);  // /users we are creating prefix
 app.use("/api/v1/task", taskRouter);
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: 'http://localhost:5173',
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    next();
+});
 
 
 app.get("/", (req,res) => {
