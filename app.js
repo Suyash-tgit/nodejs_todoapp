@@ -12,17 +12,18 @@ config({
     path: "./data/config.env",
 });
 
-const corsWithOptions = (req, res, next) => {
-    const allowedOrigins = [process.env.FRONTEND_URL]; // List of allowed origins
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
-    next();
-};
+
+// const corsWithOptions = (req, res, next) => {
+//     const allowedOrigins = [process.env.FRONTEND_URL]; // List of allowed origins
+//     const origin = req.headers.origin;
+//     if (allowedOrigins.includes(origin)) {
+//         res.setHeader('Access-Control-Allow-Origin', origin);
+//     }
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     res.header('Access-Control-Allow-Credentials', true);
+//     next();
+// };
 
 
 //using middleware's
@@ -31,11 +32,24 @@ app.use(cookieParser());
 //using routes
 app.use("/api/v1/users", userRouter);  // /users we are creating prefix
 app.use("/api/v1/task", taskRouter);
+
 // app.use(cors({
 //     origin: [process.env.FRONTEND_URL],
 //     methods: ["GET", "POST", "PUT", "DELETE"],
 //     credentials: true
 // }));
+
+
+
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+
 
 // Enable CORS with dynamic origin setting
 app.use(corsWithOptions);
