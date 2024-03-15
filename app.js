@@ -13,19 +13,6 @@ config({
 });
 
 
-// const corsWithOptions = (req, res, next) => {
-//     const allowedOrigins = [process.env.FRONTEND_URL]; // List of allowed origins
-//     const origin = req.headers.origin;
-//     if (allowedOrigins.includes(origin)) {
-//         res.setHeader('Access-Control-Allow-Origin', origin);
-//     }
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     res.header('Access-Control-Allow-Credentials', true);
-//     next();
-// };
-
-
 //using middleware's
 app.use(express.json());
 app.use(cookieParser());
@@ -33,21 +20,11 @@ app.use(cookieParser());
 app.use("/api/v1/users", userRouter);  // /users we are creating prefix
 app.use("/api/v1/task", taskRouter);
 
-// app.use(cors({
-//     origin: [process.env.FRONTEND_URL],
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true
-// }));
-
-
-
-// const corsOptions ={
-//    origin:'*', 
-//    credentials:true,            //access-control-allow-credentials:true
-//    optionSuccessStatus:200,
-// }
-
-// app.use(cors(corsOptions)) // Use this after the variable declaration
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 
 app.get("/", (req,res) => {
