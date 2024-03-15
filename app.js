@@ -50,10 +50,6 @@ const corsOptions ={
 app.use(cors(corsOptions)) // Use this after the variable declaration
 
 
-
-// Enable CORS with dynamic origin setting
-app.use(corsWithOptions);
-
 app.get("/", (req,res) => {
    res.send("Nice Working");
 });
